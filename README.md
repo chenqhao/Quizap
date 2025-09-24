@@ -5,7 +5,7 @@ I want to build a sort of <strong>"distraction tracker"</strong>, what will happ
 My goal is to cater towards people who cant on task for more than 30 minutes (aka me)
 
 ## Why is this project of interest to you?
-I am a easily distracted person and often find myself straying away from what im supposed to be doing for hours sometimes, hence wasting my productivity in the task, in fact i am quite distracted writing this right now. i hope with this app, i can improve my focus on a task and hand and improve my producivity 
+I am a easily distracted person and often find myself straying away from what im supposed to be doing for hours sometimes, hence wasting my productivity in the task, in fact i am quite distracted writing this right now. i hope with this app, i can improve my focus on a task on hand and improve my producivity 
 ## A subtitle
 
 A *bulleted* list:
