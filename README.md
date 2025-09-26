@@ -10,3 +10,12 @@ My goal is to cater towards people who would like to practice courses that requi
 ## Why is this project of interest to you?
 During my first year of university, I had a course where it was all just memorization. At the time, I only had my notes and that is what I used to practice with. If I had a simliar app to this, I feel like it would have been a more efficient way to study rather than flipping throw my notes over and over again. I hope to build this app to resolve that problem and have a more efficient way of studying memorization as well as most courses in general. 
 
+## User Story
+
+- As a User, I want to add courses
+- As a User, I want to add sections to the courses
+- As a User, I want to add questions to the sections 
+- As a User, I want to add answers(multiple choice, single answer, written) to the questions
+- As a User, I want to add descriptions/explanation to each answer
+- As a User, I want to be able to bookmark a question 
+- As a User, I want to be able to see which questions I have completed 
