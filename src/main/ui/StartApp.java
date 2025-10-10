@@ -4,30 +4,32 @@ import java.util.*;
 
 import model.*;
 
-    // Quiz Appplication 
-public class StartApp { 
+// Quiz Appplication 
+public class StartApp {
     private User user;
-    private Courses courses; 
+    private Courses courses;
     private Units units;
     private Questions questions;
     private Answers answers;
     private Scanner input;
-    private boolean condition;      
-    private int count; 
+    private boolean condition;
+    private int count;
 
-        // MODIFIES: this
-        // EFFECTS: initalizes fields, creates scanner, sets coniditon and count, starts makeUser
+    // MODIFIES: this
+    // EFFECTS: initalizes fields, creates scanner, sets coniditon and count, starts
+    // makeUser
     public StartApp() {
         input = new Scanner(System.in);
         this.condition = false;
-        this.count = 0; 
+        this.count = 0;
         makeUser();
 
     }
 
-        // REQUIRES: name length > 0
-        // MODIFIES: this 
-        // EFFECTS: allows user make a username, input courses and at the very end choose the course they wish to access
+    // REQUIRES: name length > 0
+    // MODIFIES: this
+    // EFFECTS: allows user make a username, input courses and at the very end
+    // choose the course they wish to access
     public void makeUser() {
         System.out.println("Enter User Name");
         String userName = input.nextLine();
@@ -36,10 +38,11 @@ public class StartApp {
         chooseCourse();
     }
 
-        // REQUIRES: name length > 0
-        // MODIFIES: this
-        // EFFECTS: allows user to input courses, creates course objects, adds to user, runs inputUnit to add units
-    public void inputCourses() { 
+    // REQUIRES: name length > 0
+    // MODIFIES: this
+    // EFFECTS: allows user to input courses, creates course objects, adds to user,
+    // runs inputUnit to add units
+    public void inputCourses() {
         this.condition = false;
         while (condition == false) {
             System.out.println("Enter Course Name");
@@ -47,12 +50,12 @@ public class StartApp {
             courses = new Courses(courseName);
             user.addCourses(courses);
             inputUnits();
-            boolean validInput = false; 
+            boolean validInput = false;
             while (!validInput) {
                 System.out.println("would you like to add another course? Y/N");
                 String add = input.nextLine();
                 if (add.equals("Y")) {
-                    validInput = true; 
+                    validInput = true;
                     this.condition = false;
                 } else if (add.equals("N")) {
                     validInput = true;
@@ -64,9 +67,10 @@ public class StartApp {
         }
     }
 
-        // REQUIRES: name length > 0
-        // MODIFIES: this 
-        // EFFECTS: allows user to input units, makes unit objects, adds to courses, runs inputQuestion to add questions
+    // REQUIRES: name length > 0
+    // MODIFIES: this
+    // EFFECTS: allows user to input units, makes unit objects, adds to courses,
+    // runs inputQuestion to add questions
     public void inputUnits() {
         this.condition = false;
         while (condition == false) {
@@ -83,7 +87,7 @@ public class StartApp {
                     validInput = true;
                     this.condition = false;
                 } else if (add.equals("N")) {
-                    validInput = true; 
+                    validInput = true;
                     this.condition = true;
                 } else {
                     System.out.println("Please input a Valid Prompt");
@@ -92,11 +96,12 @@ public class StartApp {
         }
     }
 
-        // REQUIRES: name length > 0
-        // MODIFIES: this
-        // EFFECTS: lets user add questions to units, creates question objects, adds them, and runs inputAnswers
+    // REQUIRES: name length > 0
+    // MODIFIES: this
+    // EFFECTS: lets user add questions to units, creates question objects, adds
+    // them, and runs inputAnswers
     public void inputQuestions() {
-        this.condition = false; 
+        this.condition = false;
         while (condition == false) {
             System.out.println("Enter Question");
             String question = input.nextLine();
@@ -120,8 +125,8 @@ public class StartApp {
         }
     }
 
-        // MODIFIES: this
-        // EFFECTS: allows users to either add a written or multiple choice question
+    // MODIFIES: this
+    // EFFECTS: allows users to either add a written or multiple choice question
     public void inputAnswers() {
         boolean validInput = false;
         while (!validInput) {
@@ -141,7 +146,8 @@ public class StartApp {
 
     // REQUIRES: name length > 0
     // MODIFIES: this
-    // EFFECTS: lets user add two answers, creates answer objects, and allows adding more or ending input
+    // EFFECTS: lets user add two answers, creates answer objects, and allows adding
+    // more or ending input
     @SuppressWarnings("methodlength")
     public void multipleChoice() {
         while (count < 2) {
@@ -173,7 +179,8 @@ public class StartApp {
 
     // REQUIRES: name length > 0
     // MODIFIES: this
-    // EFFECTS: allows user to add infinte multiple choice answers, creates answer object to put into questions 
+    // EFFECTS: allows user to add infinte multiple choice answers, creates answer
+    // object to put into questions
     @SuppressWarnings("methodlength")
     public void addMoreMultipleChoice() {
         this.condition = false;
@@ -201,14 +208,14 @@ public class StartApp {
                     System.out.println("please input a valid input");
                 }
             }
-            
+
         }
     }
-    
 
     // REQUIRES: name length > 0
     // MODIFIES: this
-    // EFFECTS: allows user to input a written question, creates answer object to add into question
+    // EFFECTS: allows user to input a written question, creates answer object to
+    // add into question
     public void writtenChoice() {
         System.out.println("please input the answer to the question eg. x^2");
         String answer = input.nextLine();
@@ -216,10 +223,9 @@ public class StartApp {
         questions.addAnswers(answers);
     }
 
-
-
     // MODIFIES: this
-    // EFFECTS: lets user pick a course, shows units, runs ChooseUnits, returns selected or null if not found
+    // EFFECTS: lets user pick a course, shows units, runs ChooseUnits, returns
+    // selected or null if not found
     public Courses chooseCourse() {
         System.out.println(user.getCourses());
         System.out.println("choose course you would like to access");
@@ -228,6 +234,7 @@ public class StartApp {
             if (choose.equals(c.getCourse())) {
                 System.out.println(c.getUnits());
                 chooseUnits(c);
+                accessSomething();
                 return c;
             }
         }
@@ -236,7 +243,8 @@ public class StartApp {
     }
 
     // MODIFIES: this
-    // EFFECTS: lets user pick a unit, shows questions, runs ChooseQuestions, returns selected or null if not found
+    // EFFECTS: lets user pick a unit, shows questions, runs ChooseQuestions,
+    // returns selected or null if not found
     public Units chooseUnits(Courses selectedCourses) {
         System.out.println("Choose unit you would like to access");
         String choose = input.nextLine();
@@ -253,12 +261,13 @@ public class StartApp {
 
 
     // MODIFIES: this
-    // EFFECTS: lets user pick a question, shows available answers, returns selected or null if not found
+    // EFFECTS: lets user pick a question, shows available answers, returns selected
+    // or null if not found
 
     public Questions chooseQuestions(Units selectedUnits) {
         System.out.println("choose which question you would like to solve");
         String choose = input.nextLine();
-        for (Questions q: selectedUnits.getQuestions()) {
+        for (Questions q : selectedUnits.getQuestions()) {
             if (choose.equals(q.getQuestion())) {
                 System.out.println(q.getAnswers());
                 return q;
@@ -268,4 +277,21 @@ public class StartApp {
         return null;
     }
 
+    private void accessSomething() {
+        boolean validInput = false;
+        while (!validInput) {
+        System.out.println("would you like to access another courses? Y/N");
+        String access = input.nextLine();
+        if (access.equals("Y")) {
+            validInput = true;
+            chooseCourse();
+        } else if (access.equals("N")) {
+            validInput = true; 
+        } else {
+            System.out.println("please input a valid input");
+        }
+
+    }
+
+}
 }
