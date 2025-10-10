@@ -10,7 +10,7 @@ public class Courses {
     // REQUIRES: name of non zero length
     // MODIFIES: this
     // EFFECTS: Constructs a course with given name and a list of units
-    public Courses(String name){
+    public Courses(String name) {
         this.courseName = name; 
         this.units = new ArrayList<>();
     }
@@ -18,22 +18,22 @@ public class Courses {
     // REQUIRES: unit is not null
     // MODIFIES: this 
     // EFFECTS: adds Units to a course list of units
-    public void addUnits(Units unit){
-        if(!units.contains(unit)){
+    public void addUnits(Units unit) {
+        if (!units.contains(unit)) {
             units.add(unit);
         }
     }
 
     // EFFECTS: returns a string representation of the courses
-    public String toString(){
+    public String toString() {
         return courseName;
     }
     
-    public String getCourse(){
+    public String getCourse() {
         return courseName;
     }
 
-    public ArrayList<Units> getUnits(){
+    public ArrayList<Units> getUnits() {
         return units; 
     }
     

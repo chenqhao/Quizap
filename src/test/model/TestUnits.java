@@ -15,21 +15,21 @@ public class TestUnits {
     private Questions question2;
 
     @BeforeEach
-    void runBefore(){
+    void runBefore() {
         testUnits = new Units("Basics");
         question1 = new Questions("what is this");
         question2 = new Questions("what is that");
     }
 
     @Test
-    void TestConstructor(){
+    void testConstructor() {
         assertEquals("Basics",testUnits.getUnit());
         assertEquals(0,testUnits.getQuestions().size());
         assertFalse(testUnits.isCompletion());
     }
 
     @Test
-    void TestAddOneQuestion(){
+    void testAddOneQuestion() {
         testUnits.addQuestions(question1);
         ArrayList<Questions> questions = testUnits.getQuestions();
         assertEquals(1, questions.size());
@@ -37,7 +37,7 @@ public class TestUnits {
     }
 
     @Test
-    void TestAddMultipleQuestion(){
+    void testAddMultipleQuestion() {
         testUnits.addQuestions(question1);
         testUnits.addQuestions(question2);
         ArrayList<Questions> questions = testUnits.getQuestions();
@@ -45,8 +45,9 @@ public class TestUnits {
         assertEquals(question1, questions.get(0));
         assertEquals(question2, questions.get(1));
     }
+
     @Test
-    void TestAddDupe(){
+    void testAddDupe() {
         testUnits.addQuestions(question1);
         testUnits.addQuestions(question1);
         ArrayList<Questions> questions = testUnits.getQuestions();
@@ -54,13 +55,13 @@ public class TestUnits {
     }
 
     @Test
-    void TestCheckCompletion(){
-        testUnits.Markcompleted();
+    void testCheckCompletion() {
+        testUnits.markcompleted();
         assertEquals(true, testUnits.isCompletion());
     }
 
     @Test
-    void TestToString(){
+    void testToString() {
         String string = testUnits.toString();
         assertTrue(string.contains("Basics"));
     }

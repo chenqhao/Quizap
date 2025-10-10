@@ -11,23 +11,24 @@ public class TestAnswers {
     private Answers testAnswers;
 
     @BeforeEach
-    void runBefore(){
+    void runBefore() {
         testAnswers  = new Answers("Answer");
     }
 
     @Test
-    void TestConstructor(){
+    void testConstructor() {
         assertEquals("Answer", testAnswers.getAnswer());
         assertFalse(testAnswers.isCorrect());
     }
 
     @Test
-    void TestSetCorrect(){
+    void testSetCorrect() {
         testAnswers.setCorrect();
         assertTrue(testAnswers.isCorrect());
     }
+
     @Test
-    void TestToString(){
+    void testToString() {
         String string = testAnswers.toString();
         assertTrue(string.contains("Answer"));
     

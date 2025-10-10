@@ -11,59 +11,59 @@ import org.junit.jupiter.api.BeforeEach;
 
 public class TestQuestions {
     private Questions testQuestion;
-    private Answers Answer1;
-    private Answers Answer2;
+    private Answers answer1;
+    private Answers answer2;
 
     @BeforeEach
-    void runBefore(){
+    void runBefore() {
         testQuestion = new Questions("what does OOP mean");
-        Answer1 = new Answers("Object Oriented Programming");
-        Answer2 = new Answers("Only On Paper");
+        answer1 = new Answers("Object Oriented Programming");
+        answer2 = new Answers("Only On Paper");
     }
 
     @Test
-    void TestConstructos(){
+    void testConstructos() {
         assertEquals("what does OOP mean", testQuestion.getQuestion());
         assertEquals(0, testQuestion.getAnswers().size());
         assertFalse(testQuestion.isCompletion());
     }
 
     @Test 
-    void testAddSingleAnswer(){
-        testQuestion.addAnswers(Answer1);
+    void testAddSingleAnswer() {
+        testQuestion.addAnswers(answer1);
         ArrayList<Answers> answers = testQuestion.getAnswers();
         assertEquals(1, answers.size());
-        assertEquals(Answer1, answers.get(0));
+        assertEquals(answer1, answers.get(0));
     }
 
     @Test
-    void testAddMultipleAnswers(){
-        testQuestion.addAnswers(Answer1);
-        testQuestion.addAnswers(Answer2);
+    void testAddMultipleAnswers() {
+        testQuestion.addAnswers(answer1);
+        testQuestion.addAnswers(answer2);
         ArrayList<Answers> answers = testQuestion.getAnswers();
         assertEquals(2, answers.size());
-        assertEquals(Answer1, answers.get(0));
-        assertEquals(Answer2, answers.get(1));
+        assertEquals(answer1, answers.get(0));
+        assertEquals(answer2, answers.get(1));
     }
     
 
     @Test
-    void testAddDupe(){
-        testQuestion.addAnswers(Answer1);
-        testQuestion.addAnswers(Answer1);
+    void testAddDupe() {
+        testQuestion.addAnswers(answer1);
+        testQuestion.addAnswers(answer1);
         ArrayList<Answers> answers = testQuestion.getAnswers();
         assertEquals(1, answers.size());
     }
 
-    @Test
-    void TestCheckCompletion(){
-        Answer1.setCorrect();
-        testQuestion.Markcompleted(Answer1);
+    @Test 
+    void testCheckCompletion() {
+        answer1.setCorrect();
+        testQuestion.markcompleted(answer1);
         assertEquals(true, testQuestion.isCompletion());
     }
 
     @Test
-    void TestToString(){
+    void testToString() {
         String string = testQuestion.toString();
         assertTrue(string.contains("what does OOP mean"));
     }

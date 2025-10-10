@@ -24,13 +24,13 @@ public class TestCourses {
     }
 
     @Test
-    void TestConstructor(){
+    void testConstructor() {
         assertEquals("CPSC210", testCourses.getCourse());
         assertEquals(0, testCourses.getUnits().size());
     }
 
     @Test
-    void TestSingleUnit(){
+    void testSingleUnit() {
         testCourses.addUnits(testUnits1);
         ArrayList<Units> units = testCourses.getUnits();
         assertEquals(1, units.size());
@@ -39,7 +39,7 @@ public class TestCourses {
     }
 
     @Test
-    void TestMultipleUnit(){
+    void testMultipleUnit() {
         testCourses.addUnits(testUnits1);
         testCourses.addUnits(testUnits2);
         ArrayList<Units> units = testCourses.getUnits();
@@ -49,7 +49,7 @@ public class TestCourses {
     }
 
     @Test 
-    void TestAddDupe(){
+    void testAddDupe() {
         testCourses.addUnits(testUnits1);
         testCourses.addUnits(testUnits1);
         ArrayList<Units> units = testCourses.getUnits();
@@ -58,7 +58,7 @@ public class TestCourses {
     }
 
     @Test
-    void TestToString(){
+    void testToString() {
         String string = testCourses.toString();
         assertTrue(string.contains("CPSC210"));
     }

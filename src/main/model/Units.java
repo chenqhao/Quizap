@@ -11,7 +11,7 @@ public class Units {
     // REQUIRES: name of non zero length
     // MODIFIES: this 
     // EFFECTS: constructs a unit with given name with a list of questions and sets completion to false
-    public Units(String unit){
+    public Units(String unit) {
         this.unit = unit;
         this.questions = new ArrayList<>();
         this.completion = false;
@@ -20,32 +20,32 @@ public class Units {
     // REQUIRES: question that is not null
     // MODIFIES: this
     // EFFECTS: adds questions to a units list of questions
-    public void addQuestions(Questions question){
-        if(!questions.contains(question)){
+    public void addQuestions(Questions question) {
+        if (!questions.contains(question)) {
             questions.add(question);
         }
     }
 
     // MODIFIES: this 
     // EFFECTS: marks this unit as complete
-    public void Markcompleted(){
+    public void markcompleted() { 
         this.completion = true;
     }
 
     // EFFECTS: returns a string representation of the unit
-    public String toString(){
+    public String toString() {
         return unit;
     }
 
-    public String getUnit(){
+    public String getUnit() {
         return unit;
     }
 
-    public ArrayList<Questions> getQuestions(){
+    public ArrayList<Questions> getQuestions() {
         return questions;
     }
 
-    public boolean isCompletion(){
+    public boolean isCompletion() {
         return completion;
     }
 

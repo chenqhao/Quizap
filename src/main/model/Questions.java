@@ -11,37 +11,44 @@ public class Questions {
     // REQUIRES: description of non zero length
     // MODIFIES: this
     // EFFECTS: Constructs a question with a list of answers and sets completion to false
-    public Questions(String question){
-        // stub
+    public Questions(String question) {
+        this.question = question;
+        completion = false; 
+        answers = new ArrayList<>();
 
     }
 
     // REQUIRES: answer is not null
     // MODIFIES: this
     // EFFECTS: adds answers to a questions list of answers 
-    public void addAnswers(Answers answer){
-        // stub
+    public void addAnswers(Answers answer) {
+        if (!answers.contains(answer)) {
+            answers.add(answer);
+        }
     }
 
     // MODIFIES: this 
     // EFFECTS: marks question as complete
-    public void Markcompleted(){
-        // stub
+    public void markcompleted(Answers answer) {
+        if (answer.isCorrect() == true) {
+            this.completion = true;
+        }
     }
-    public String getQuestion(){
-        return null;
+    
+    public String getQuestion() {
+        return question;
     }
 
     // EFFECTS: returns a string representation of the question
-    public String toString(){
-        return null;
+    public String toString() {
+        return question;
     }
 
-    public ArrayList<Answers> getAnswers(){
-        return null;
+    public ArrayList<Answers> getAnswers() {
+        return answers;
     }
 
-    public boolean isCompletion(){
-        return false; 
+    public boolean isCompletion() {
+        return completion; 
     }
 }

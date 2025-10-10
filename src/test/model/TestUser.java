@@ -13,26 +13,28 @@ public class TestUser {
     private Courses course2;
 
     @BeforeEach
-    void runBefore(){
+    void runBefore() {
         testUser = new User("Howie");
         course1 = new Courses("CPSC210");
         course2 = new Courses("MATH200");
     }
 
     @Test
-    void TestConstructor(){
+    void testConstructor() {
         assertEquals("Howie", testUser.getUser());
         assertEquals(0, testUser.getCourses().size());
     }
+
     @Test
-    void TestAddSingleCourse(){
+    void testAddSingleCourse() {
         testUser.addCourses(course1);
         ArrayList<Courses> courses = testUser.getCourses();
         assertEquals(1,courses.size());
         assertEquals(course1, courses.get(0));
     }
+
     @Test
-    void TestAddMultipleCourse(){
+    void testAddMultipleCourse() {
         testUser.addCourses(course1);
         testUser.addCourses(course2);
         ArrayList<Courses> courses = testUser.getCourses();
@@ -42,7 +44,7 @@ public class TestUser {
     }
 
     @Test
-    void TestAddDupe(){
+    void testAddDupe() {
         testUser.addCourses(course1);
         testUser.addCourses(course1);
         ArrayList<Courses> courses = testUser.getCourses();
