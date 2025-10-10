@@ -46,7 +46,6 @@ public class TestQuestions {
         assertEquals(answer2, answers.get(1));
     }
     
-
     @Test
     void testAddDupe() {
         testQuestion.addAnswers(answer1);
@@ -60,6 +59,12 @@ public class TestQuestions {
         answer1.setCorrect();
         testQuestion.markcompleted(answer1);
         assertEquals(true, testQuestion.isCompletion());
+    }
+
+    @Test
+    void testCheckNotCompletion() {
+        testQuestion.markcompleted(answer1);
+        assertFalse(testQuestion.isCompletion());
     }
 
     @Test
