@@ -2,7 +2,7 @@ package model;
 
 import java.util.ArrayList;
 
-// represents a course with a list of units
+// represents a course with a list of units and name 
 public class Courses {
     private String courseName;
     private ArrayList<Units> units;
