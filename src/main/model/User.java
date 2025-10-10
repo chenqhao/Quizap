@@ -10,22 +10,25 @@ public class User{
     // MODIFIES: this
     // EFFECTS: Constructs user with given name and a new list of courses   
     public User(String name){
-    //   stub
+        this.name = name;
+        this.courses = new ArrayList<>();
     }
 
     // REQUIRES: course is not null
     // MODIFIES: this 
     // EFFECTS: adds course to a users list of courses 
     public void addCourses(Courses course){
-    //    stub  
+        if(!courses.contains(course)){
+            courses.add(course);
+        }
     }
     
     public ArrayList<Courses> getCourses(){
-        return null;
+        return courses;
     }
 
     public String getUser(){
-        return null;
+        return name;
     }
 
 }
