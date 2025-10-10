@@ -11,28 +11,30 @@ public class Courses {
     // MODIFIES: this
     // EFFECTS: Constructs a course with given name and a list of units
     public Courses(String name){
-        // stub
-
+        this.courseName = name; 
+        this.units = new ArrayList<>();
     }
 
     // REQUIRES: unit is not null
     // MODIFIES: this 
     // EFFECTS: adds Units to a course list of units
     public void addUnits(Units unit){
-        // stub
+        if(!units.contains(unit)){
+            units.add(unit);
+        }
     }
 
     // EFFECTS: returns a string representation of the courses
     public String toString(){
-        return null;
+        return courseName;
     }
     
     public String getCourse(){
-        return null;
+        return courseName;
     }
 
     public ArrayList<Units> getUnits(){
-        return null; 
+        return units; 
     }
     
 
