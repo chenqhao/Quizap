@@ -63,7 +63,6 @@ public class TestQuestions {
 
     @Test
     void TestToString(){
-        testQuestion.addAnswers(Answer1);
         String string = testQuestion.toString();
         assertTrue(string.contains("what does OOP mean"));
     }

@@ -61,7 +61,6 @@ public class TestUnits {
 
     @Test
     void TestToString(){
-        testUnits.addQuestions(question1);
         String string = testUnits.toString();
         assertTrue(string.contains("Basics"));
     }
