@@ -12,14 +12,18 @@ public class Units {
     // MODIFIES: this 
     // EFFECTS: constructs a unit with given name with a list of questions and sets completion to false
     public Units(String unit){
-        // stub
+        this.unit = unit;
+        this.questions = new ArrayList<>();
+        this.completion = false;
     }
 
     // REQUIRES: question that is not null
     // MODIFIES: this
     // EFFECTS: adds questions to a units list of questions
     public void addQuestions(Questions question){
-        // stub
+        if(!questions.contains(question)){
+            questions.add(question);
+        }
     }
 
     // MODIFIES: this 
@@ -30,19 +34,19 @@ public class Units {
 
     // EFFECTS: returns a string representation of the unit
     public String toString(){
-        return null;
+        return unit;
     }
 
     public String getUnit(){
-        return null;
+        return unit;
     }
 
     public ArrayList<Questions> getQuestions(){
-        return null;
+        return questions;
     }
 
     public boolean isCompletion(){
-        return false;
+        return completion;
     }
 
 }
