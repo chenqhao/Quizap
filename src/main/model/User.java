@@ -6,7 +6,7 @@ public class User{
     private String name; // user name 
     private ArrayList<Courses> courses; // user courses 
 
-    
+    // REQUIRES: name of non zero length
     // MODIFIES: this
     // EFFECTS: Constructs user with given name and a new list of courses   
     public User(String name){

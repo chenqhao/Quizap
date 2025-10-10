@@ -8,6 +8,7 @@ public class Units {
     private ArrayList<Questions> questions; // unit questions
     private boolean completion; //unit status
 
+    // REQUIRES: name of non zero length
     // MODIFIES: this 
     // EFFECTS: constructs a unit with given name with a list of questions and sets completion to false
     public Units(String unit){
