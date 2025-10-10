@@ -19,3 +19,8 @@ During my first year of university, I had a course where it was all just memoriz
 - As a User, I want to add descriptions/explanation to each answer
 - As a User, I want to be able to bookmark a question 
 - As a User, I want to be able to see which questions I have completed 
+- As a User, I want to be able to see my courses 
+- As a User, I want to be able to see my units
+- As a User, I want to be able to see my questions
+- As a User, I want to be able to see my answers 
+    
