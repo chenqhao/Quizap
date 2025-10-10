@@ -16,7 +16,7 @@ public class Questions {
 
     }
 
-    // REQUIERS: answer is not null
+    // REQUIRES: answer is not null
     // MODIFIES: this
     // EFFECTS: adds answers to a questions list of answers 
     public void addAnswers(Answers answer){
@@ -25,13 +25,14 @@ public class Questions {
 
     // MODIFIES: this 
     // EFFECTS: marks question as complete
-    public void Markcompleted(Answers answer){
+    public void Markcompleted(){
         // stub
     }
     public String getQuestion(){
         return null;
     }
 
+    // EFFECTS: returns a string representation of the question
     public String toString(){
         return null;
     }
