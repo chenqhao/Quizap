@@ -57,7 +57,8 @@ public class TestQuestions {
 
     @Test
     void TestCheckCompletion(){
-        testQuestion.Markcompleted();
+        Answer1.setCorrect();
+        testQuestion.Markcompleted(Answer1);
         assertEquals(true, testQuestion.isCompletion());
     }
 
