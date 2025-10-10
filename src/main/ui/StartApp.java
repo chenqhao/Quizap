@@ -280,18 +280,18 @@ public class StartApp {
     private void accessSomething() {
         boolean validInput = false;
         while (!validInput) {
-        System.out.println("would you like to access another courses? Y/N");
-        String access = input.nextLine();
-        if (access.equals("Y")) {
-            validInput = true;
-            chooseCourse();
-        } else if (access.equals("N")) {
-            validInput = true; 
-        } else {
-            System.out.println("please input a valid input");
+            System.out.println("would you like to access another courses? Y/N");
+            String access = input.nextLine();
+            if (access.equals("Y")) {
+                validInput = true;
+                chooseCourse();
+            } else if (access.equals("N")) {
+                validInput = true; 
+            } else {
+                System.out.println("please input a valid input");
+            }
+
         }
 
     }
-
-}
 }
