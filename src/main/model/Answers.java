@@ -9,25 +9,26 @@ public class Answers {
     // MODIFIES: this
     // EFFECTS: Constructs a answer with a given description and sets default correct to false 
     public Answers(String answer){
-        // stub
+        this.answer = answer;
+        this.correct = false;
     }
 
 
     public void setCorrect(){
-        // stub
+        this.correct = true; 
     }
 
     public String getAnswer(){
-        return null;
+        return answer;
     }
 
     public boolean isCorrect(){
-        return false;
+        return correct;
     }
 
     // returns a string representation of the answers
     public String toString(){
-        return null;
+        return answer;
     }
     
 }
