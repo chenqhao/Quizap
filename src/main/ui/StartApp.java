@@ -373,7 +373,7 @@ public class StartApp {
         System.out.println("\tL -> load course from user");
         System.out.println("\tQ -> quit");
     }
-
+    
     // EFFECTS: things
     // EFFECTS: proccesses user command 
     private void processCommand(String command) {
@@ -382,7 +382,7 @@ public class StartApp {
         } else if (command.equals("C")) {
             chooseCourse();
         } else if (command.equals("S")) {
-            // saveUser();
+            saveUser();
         } else if (command.equals("L")) {
             loadUser();
         } else if (command.equals("Q")) {
@@ -392,6 +392,23 @@ public class StartApp {
         }
     }
     
+    /* Description: JsonSerializationDemo
+     * Author: Paul Carter
+     * Date: Oct 23, 2025
+     * URL: https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
+     */
+    // EFFECTS: saves the user to file 
+    private void saveUser() {
+        try {
+            jsonWriter.open();
+            jsonWriter.write(user);
+            jsonWriter.close();
+            System.out.println("Saved" + user.getUser() + "to" + JSON_STORE);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            System.out.println("could not write file" + JSON_STORE);
+        }
+    }
 
     /* Description: JsonSerializationDemo
      * Author: Paul Carter
