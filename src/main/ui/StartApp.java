@@ -318,30 +318,51 @@ public class StartApp {
 
     // REQUIRES: user to have at least one answer added
     // EFFECTS: lets user choose or type out a question
-    private void chooseAnswer(Questions selectedQuestions) { 
+    private Answers chooseAnswer(Questions selectedQuestions) { 
+        if (selectedQuestions.getAnswers().size() == 0) {
+            System.out.println("there is not a answer in your list");
+            return null;
+        }
         if (selectedQuestions.getWritten() == true) {
-            System.out.println("please input your answer");
-            String chooseWritten = input.nextLine();
-            if (chooseWritten.equals(selectedQuestions.getAnswers().get(0).getAnswer())) {
-                System.out.println("correct");
-            } else {
-                System.out.println("incorrect");
-            }
-        } else if (selectedQuestions.getWritten() == false) {
-            System.out.println(selectedQuestions.getAnswers());
-            System.out.println("please select a answer");
-            String choose = input.nextLine();
-            for (Answers a: selectedQuestions.getAnswers()) {
-                if (choose.equals(a.getAnswer())) {
-                    if (a.isCorrect() == true) {
-                        System.out.println("correct");
-                    } else {
-                        System.out.println("incorrect");
-                    }
-                }
-            }
+            return questionWritten(selectedQuestions);
+        } else {
+            return questionMultiple(selectedQuestions);
         } 
-        System.out.println("there is not a answer in your list");
+    }
+
+    // EFFECTS: processes written question for user
+    private Answers questionWritten(Questions selectedQuestions) {
+        System.out.println("please input your answer");
+        String chooseWritten = input.nextLine();
+        if (chooseWritten.equals(selectedQuestions.getAnswers().get(0).getAnswer())) {
+            System.out.println("correct");
+            return selectedQuestions.getAnswers().get(0);
+        } else {
+            System.out.println("incorrect");
+            return selectedQuestions.getAnswers().get(0);
+        }
+    }
+
+    // EFFECTS: processes multiple choice question for user
+    private Answers questionMultiple(Questions selectedQuestions) {
+        System.out.println(selectedQuestions.getAnswers());
+        System.out.println("please select a answer");
+        String choose = input.nextLine();
+        for (Answers a: selectedQuestions.getAnswers()) {
+            if (choose.equals(a.getAnswer())) {
+                if (a.isCorrect() == true) {
+                    System.out.println("correct");
+                    return a;
+                } else {
+                    System.out.println("incorrect");
+                    return a;
+                }
+            } else {
+                System.out.println("that is not a valid answer ");
+                return null;
+            }
+        }
+        return null; 
     }
 
     // REQUIRES: user to have at least one course added 
