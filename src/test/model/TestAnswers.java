@@ -1,12 +1,13 @@
 package model;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import ca.ubc.cs.ExcludeFromJacocoGeneratedReport;
+
+@ExcludeFromJacocoGeneratedReport
 public class TestAnswers {
     private Answers testAnswers;
 
@@ -33,4 +34,6 @@ public class TestAnswers {
         assertTrue(string.contains("Answer"));
     
     }
+
+
 }

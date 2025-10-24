@@ -1,14 +1,16 @@
 package model;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
 
 import org.junit.jupiter.api.Test;
+
+import ca.ubc.cs.ExcludeFromJacocoGeneratedReport;
+
 import org.junit.jupiter.api.BeforeEach;
 
+@ExcludeFromJacocoGeneratedReport
 public class TestQuestions {
     private Questions testQuestion;
     private Answers answer1;
@@ -71,5 +73,12 @@ public class TestQuestions {
     void testToString() {
         String string = testQuestion.toString();
         assertTrue(string.contains("what does OOP mean"));
+    }
+
+    @Test
+    void testIfWritten() {
+        testQuestion.setWritten();
+        assertTrue(testQuestion.getWritten());
+
     }
 }

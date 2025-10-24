@@ -1,15 +1,15 @@
 package model;
 
-
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import ca.ubc.cs.ExcludeFromJacocoGeneratedReport;
+
+@ExcludeFromJacocoGeneratedReport
 public class TestCourses {
     private Courses testCourses;
     private Units testUnits1;
@@ -56,7 +56,7 @@ public class TestCourses {
         assertEquals(1, units.size());
         assertEquals(testUnits1, units.get(0));
     }
-
+    
     @Test
     void testToString() {
         String string = testCourses.toString();

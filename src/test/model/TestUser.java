@@ -1,12 +1,15 @@
 package model;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import ca.ubc.cs.ExcludeFromJacocoGeneratedReport;
+
+@ExcludeFromJacocoGeneratedReport
 public class TestUser {
     private User testUser;
     private Courses course1;
@@ -50,7 +53,4 @@ public class TestUser {
         ArrayList<Courses> courses = testUser.getCourses();
         assertEquals(1, courses.size());
     }
-
-
-
 }
