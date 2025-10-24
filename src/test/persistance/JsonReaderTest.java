@@ -10,6 +10,12 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import ca.ubc.cs.ExcludeFromJacocoGeneratedReport;
 
+
+/* Description: JsonSerializationDemo
+     * Author: Paul Carter
+     * Date: Oct 23, 2025
+     * URL: https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
+*/
 @ExcludeFromJacocoGeneratedReport
 class JsonReaderTest extends JsonTest {
 
