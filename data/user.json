@@ -1,0 +1,37 @@
+{
+    "name": "howie",
+    "course": [{
+        "unit": [{
+            "unit": "basics",
+            "question": [
+                {
+                    "isWritten": false,
+                    "question": "oop",
+                    "answer": [
+                        {
+                            "answer": "oop",
+                            "correct": true
+                        },
+                        {
+                            "answer": "doop",
+                            "correct": false
+                        },
+                        {
+                            "answer": "hoop",
+                            "correct": false
+                        }
+                    ]
+                },
+                {
+                    "isWritten": true,
+                    "question": "hi",
+                    "answer": [{
+                        "answer": "bye",
+                        "correct": true
+                    }]
+                }
+            ]
+        }],
+        "course": "cpsc210"
+    }]
+}

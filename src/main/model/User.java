@@ -2,9 +2,14 @@ package model;
 
 import java.util.ArrayList;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import persistance.Writable;
+
 // represents a user having a name and list of courses
 
-public class User {
+public class User implements Writable {
     private String name; // user name 
     private ArrayList<Courses> courses; // user courses 
 
@@ -33,4 +38,24 @@ public class User {
         return name;
     }
 
+    /* Description: JsonSerializationDemo
+     * Author: Paul Carter
+     * Date: Oct 23, 2025
+     * URL: https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
+     */
+    @Override
+    public JSONObject toJson() {
+        return null;
+    }
+
+    /* Description: JsonSerializationDemo
+     * Author: Paul Carter
+     * Date: Oct 23, 2025
+     * URL: https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
+     */
+    // EFFECTS: returns things in the User as a JSON array
+    private JSONArray coursesToJson() {
+        return null;
+
+    }
 }

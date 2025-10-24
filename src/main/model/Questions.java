@@ -2,11 +2,17 @@ package model;
 
 import java.util.ArrayList;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import persistance.Writable;
+
 // represents questions that has a question description, list of answers and completion status 
-public class Questions {
+public class Questions implements Writable {
     private String question;
     private ArrayList<Answers> answers; 
     private boolean completion; 
+    private boolean isWritten;
 
     // REQUIRES: description of non zero length
     // MODIFIES: this
@@ -15,6 +21,7 @@ public class Questions {
         this.question = question;
         completion = false; 
         answers = new ArrayList<>();
+        this.isWritten = false; 
 
     }
 
@@ -51,4 +58,33 @@ public class Questions {
     public boolean isCompletion() {
         return completion; 
     }
+
+    public void setWritten() {
+        this.isWritten = true;
+    }
+
+    public boolean getWritten() {
+        return isWritten;
+    }
+
+    /* Description: JsonSerializationDemo
+     * Author: Paul Carter
+     * Date: Oct 23, 2025
+     * URL: https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
+     */
+    @Override
+    public JSONObject toJson() {
+        return null;
+    }
+
+    /* Description: JsonSerializationDemo
+     * Author: Paul Carter
+     * Date: Oct 23, 2025
+     * URL: https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
+     */
+    // EFFECTS: returns things in the answers as a JSON array
+    private JSONArray answersToJson() {
+        return null; 
+    }
+
 }

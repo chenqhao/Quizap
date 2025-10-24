@@ -2,8 +2,13 @@ package model;
 
 import java.util.ArrayList;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import persistance.Writable;
+
 // represents a unit that has a name, list of questions and a completion status
-public class Units {
+public class Units implements Writable {
     private String unit; // unit name
     private ArrayList<Questions> questions; // unit questions
     private boolean completion; //unit status
@@ -49,4 +54,25 @@ public class Units {
         return completion;
     }
 
+    /* Description: JsonSerializationDemo
+     * Author: Paul Carter
+     * Date: Oct 23, 2025
+     * URL: https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
+     */
+    @Override
+    public JSONObject toJson() {
+        return null;
+       
+    }
+
+    /* Description: JsonSerializationDemo
+     * Author: Paul Carter
+     * Date: Oct 23, 2025
+     * URL: https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
+     */
+    // EFFECTS: returns things in the questions as a JSON array
+    private JSONArray questionsToJson() {
+        return null;
+
+    }
 }

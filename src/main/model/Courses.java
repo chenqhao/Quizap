@@ -2,8 +2,13 @@ package model;
 
 import java.util.ArrayList;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import persistance.Writable;
+
 // represents a course with a list of units and name 
-public class Courses {
+public class Courses implements Writable {
     private String courseName;
     private ArrayList<Units> units;
 
@@ -36,6 +41,25 @@ public class Courses {
     public ArrayList<Units> getUnits() {
         return units; 
     }
-    
+
+    /* Description: JsonSerializationDemo
+     * Author: Paul Carter
+     * Date: Oct 23, 2025
+     * URL: https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
+     */
+    @Override
+    public JSONObject toJson() {
+        return null;
+    }
+
+    /* Description: JsonSerializationDemo
+     * Author: Paul Carter
+     * Date: Oct 23, 2025
+     * URL: https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
+     */
+    // EFFECTS: returns things in the units as a JSON array
+    private JSONArray unitToJson() {
+        return null; 
+    }
 
 }
