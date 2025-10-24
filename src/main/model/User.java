@@ -38,6 +38,7 @@ public class User implements Writable {
         return name;
     }
 
+
     /* Description: JsonSerializationDemo
      * Author: Paul Carter
      * Date: Oct 23, 2025
@@ -45,7 +46,10 @@ public class User implements Writable {
      */
     @Override
     public JSONObject toJson() {
-        return null;
+        JSONObject json = new JSONObject();
+        json.put("name", name);
+        json.put("course", coursesToJson());
+        return json;
     }
 
     /* Description: JsonSerializationDemo
@@ -55,7 +59,14 @@ public class User implements Writable {
      */
     // EFFECTS: returns things in the User as a JSON array
     private JSONArray coursesToJson() {
-        return null;
+        JSONArray jsonArray = new JSONArray();
 
+        for (Courses c: courses) {
+            jsonArray.put(c.toJson());
+        }
+
+        return jsonArray;
     }
+
+
 }

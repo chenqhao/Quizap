@@ -382,7 +382,7 @@ public class StartApp {
         } else if (command.equals("C")) {
             chooseCourse();
         } else if (command.equals("S")) {
-            saveUser();
+            // saveUser();
         } else if (command.equals("L")) {
             loadUser();
         } else if (command.equals("Q")) {
@@ -392,15 +392,6 @@ public class StartApp {
         }
     }
     
-    /* Description: JsonSerializationDemo
-     * Author: Paul Carter
-     * Date: Oct 23, 2025
-     * URL: https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
-     */
-    // EFFECTS: saves the user to file 
-    private void saveUser() {
-
-    }
 
     /* Description: JsonSerializationDemo
      * Author: Paul Carter
@@ -410,6 +401,11 @@ public class StartApp {
     // MODIFIES: this 
     // EFFECTS: loads user from file 
     private void loadUser() {
-
+        try {
+            user = jsonReader.read();
+            System.out.println("Loaded " + user.getUser() + " from " + JSON_STORE);
+        } catch (IOException e) {
+            System.out.println("Unable to read from file: " + JSON_STORE);
+        }
     }
 }

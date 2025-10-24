@@ -11,12 +11,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
 
-
-/* Description: JsonSerializationDemo
-     * Author: Paul Carter
-     * Date: Oct 23, 2025
-     * URL: https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
-*/
 @ExcludeFromJacocoGeneratedReport
 class JsonWriterTest extends JsonTest {
     

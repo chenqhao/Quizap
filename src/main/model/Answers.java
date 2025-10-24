@@ -43,7 +43,10 @@ public class Answers implements Writable {
      */
     @Override
     public JSONObject toJson() {
-        return null;
+        JSONObject json = new JSONObject();
+        json.put("answer", answer);
+        json.put("correct", correct);
+        return json;
     }
     
 }

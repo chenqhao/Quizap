@@ -61,8 +61,10 @@ public class Units implements Writable {
      */
     @Override
     public JSONObject toJson() {
-        return null;
-       
+        JSONObject json = new JSONObject();
+        json.put("unit", unit);
+        json.put("question", questionsToJson());
+        return json;
     }
 
     /* Description: JsonSerializationDemo
@@ -72,7 +74,13 @@ public class Units implements Writable {
      */
     // EFFECTS: returns things in the questions as a JSON array
     private JSONArray questionsToJson() {
-        return null;
+        JSONArray jsonArray = new JSONArray();
 
+        for (Questions q: questions) {
+            jsonArray.put(q.toJson());
+        }
+
+        return jsonArray;
     }
+
 }

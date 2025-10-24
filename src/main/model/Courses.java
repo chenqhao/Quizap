@@ -41,7 +41,7 @@ public class Courses implements Writable {
     public ArrayList<Units> getUnits() {
         return units; 
     }
-
+    
     /* Description: JsonSerializationDemo
      * Author: Paul Carter
      * Date: Oct 23, 2025
@@ -49,7 +49,10 @@ public class Courses implements Writable {
      */
     @Override
     public JSONObject toJson() {
-        return null;
+        JSONObject json = new JSONObject();
+        json.put("course", courseName);
+        json.put("unit", unitToJson());
+        return json;
     }
 
     /* Description: JsonSerializationDemo
@@ -59,7 +62,13 @@ public class Courses implements Writable {
      */
     // EFFECTS: returns things in the units as a JSON array
     private JSONArray unitToJson() {
-        return null; 
+        JSONArray jsonArray = new JSONArray();
+
+        for (Units u: units) {
+            jsonArray.put(u.toJson());
+        }
+
+        return jsonArray;
     }
 
 }
