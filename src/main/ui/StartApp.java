@@ -357,13 +357,12 @@ public class StartApp {
                     System.out.println("incorrect");
                     return a;
                 }
-            } else {
-                System.out.println("that is not a valid answer ");
-                return null;
             }
         }
-        return null; 
+        System.out.println("that is not a valid answer ");
+        return null;
     }
+    
 
     // REQUIRES: user to have at least one course added 
     // MODIFIES: this 
