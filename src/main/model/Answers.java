@@ -29,8 +29,6 @@ public class Answers implements Writable {
         return correct; 
     }
 
-    
-
     // returns a string representation of the answers
     public String toString() {
         return answer;
