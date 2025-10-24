@@ -6,8 +6,8 @@ import persistance.Writable;
 
 // represents a answer with a answer description and correct status
 public class Answers implements Writable {
-    String answer;
-    boolean correct;
+    private String answer;
+    private boolean correct;
 
     // REQUIRES: description of non zero length
     // MODIFIES: this
