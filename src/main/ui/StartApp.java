@@ -346,7 +346,7 @@ public class StartApp {
     // EFFECTS: processes multiple choice question for user
     private Answers questionMultiple(Questions selectedQuestions) {
         System.out.println(selectedQuestions.getAnswers());
-        System.out.println("please select a answer");
+        System.out.println("select one of the following choices");
         String choose = input.nextLine();
         for (Answers a: selectedQuestions.getAnswers()) {
             if (choose.equals(a.getAnswer())) {
