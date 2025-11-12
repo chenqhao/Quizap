@@ -3,65 +3,29 @@
     "course": [
         {
             "unit": [{
-                "unit": "basics",
-                "question": [
-                    {
-                        "isWritten": false,
-                        "question": "what is oop",
-                        "answer": [
-                            {
-                                "answer": "object oriented programming",
-                                "correct": true
-                            },
-                            {
-                                "answer": "only on paper",
-                                "correct": false
-                            },
-                            {
-                                "answer": "on ontario programming",
-                                "correct": false
-                            }
-                        ]
-                    },
-                    {
-                        "isWritten": true,
-                        "question": "cpsc210 professor",
-                        "answer": [{
-                            "answer": "paul carter",
-                            "correct": true
-                        }]
-                    }
-                ]
+                "unit": "Abstrations",
+                "question": [{
+                    "isWritten": false,
+                    "question": "what is a abstraction class",
+                    "answer": [{
+                        "answer": "an abstraction class",
+                        "correct": false
+                    }]
+                }]
             }],
             "course": "CPSC210"
         },
         {
             "unit": [{
-                "unit": "week 8",
-                "question": [
-                    {
-                        "isWritten": true,
-                        "question": "what is df/dx",
-                        "answer": [{
-                            "answer": "derivative ",
-                            "correct": true
-                        }]
-                    },
-                    {
-                        "isWritten": false,
-                        "question": "math200 professor",
-                        "answer": [
-                            {
-                                "answer": "paul carter",
-                                "correct": false
-                            },
-                            {
-                                "answer": "sabin cautis",
-                                "correct": true
-                            }
-                        ]
-                    }
-                ]
+                "unit": "Week9",
+                "question": [{
+                    "isWritten": false,
+                    "question": "what is a gradient ",
+                    "answer": [{
+                        "answer": "a gradient",
+                        "correct": false
+                    }]
+                }]
             }],
             "course": "MATH200"
         }
