@@ -3,10 +3,12 @@ package ui.gui;
 import javax.swing.*;
 
 import ca.ubc.cs.ExcludeFromJacocoGeneratedReport;
+import java.util.*;
 
 import java.awt.*;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.lang.reflect.Array;
 
 import model.*;
 import persistance.JsonReader;
@@ -29,6 +31,7 @@ public class QuizAppGUI extends JFrame {
     private JButton answerButton;
 
     private JButton startQuiz;
+    private JButton answerQuestion;
 
     private JButton saveButton;
     private JButton loadButton;
@@ -76,6 +79,7 @@ public class QuizAppGUI extends JFrame {
         loadButton = new JButton("Load");
 
         startQuiz = new JButton("Start Quiz");
+        answerQuestion = new JButton("answer question");
 
         // panel stuff
         JPanel buttonPanel = new JPanel();
@@ -133,6 +137,7 @@ public class QuizAppGUI extends JFrame {
         loadButton.addActionListener(e -> loadData());
 
         startQuiz.addActionListener(e -> startingQuiz());
+        answerQuestion.addActionListener(e -> selectingQuestion());
 
     
         setVisible(true);
@@ -363,15 +368,87 @@ public class QuizAppGUI extends JFrame {
         informationPanel.add(unitDropdown);
         informationPanel.add(questionDropdown);
         informationPanel.add(answerDropdown);
+        informationPanel.add(answerQuestion);
         quizWindow.setVisible(true);
     }   
 
 
     private void selectingQuestion() { 
-        // will add a multiple choice like question popup using JOptionPane
+        Questions selectedQuestion = getSelectedQuestion();
+        if (selectedQuestion == null) {
+            JOptionPane.showMessageDialog(this, "No question selected.");
+            return;
+        }
+
+        ArrayList<Answers> answersList = selectedQuestion.getAnswers();
+        if (answersList.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "No answers available for this question.");
+            return;
+        }
+
+        if (answersList.size() == 1) {
+            showWrittenQuestion(selectedQuestion);
+        } else { 
+            showMultipleChoiceQuestion(selectedQuestion, answersList);
+        }
     }
 
+    private void showWrittenQuestion(Questions selectedQuestion) {
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        panel.add(new JLabel("<html><b>" + selectedQuestion.getQuestion() + "</b></html>"));
+        JTextField answerField = new JTextField(20);
+        panel.add(answerField);
 
+        int result = JOptionPane.showConfirmDialog( this, panel, "Answer Question", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+
+        if (result == JOptionPane.OK_OPTION) {
+            String answer = answerField.getText().trim();
+            if (answer.isEmpty()) {
+                JOptionPane.showInputDialog(this, "Please enter an answer!");
+            } else {
+                displayArea.append("Answered \"" + answer + "\" for: "  + selectedQuestion.getQuestion() + "\n");
+                String selectedQuestionAnswer = selectedQuestion.getAnswers().get(0).getAnswer();
+                if (answer.equalsIgnoreCase(selectedQuestionAnswer)) {
+                    displayArea.append("Correct");
+                } else { 
+                    displayArea.append("Incorrect");
+                }
+            }
+        }
+    }
+
+    private void showMultipleChoiceQuestion(Questions selectedQuestion, java.util.List<Answers> answersList) {
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        panel.add(new JLabel("<html><b>" + selectedQuestion.getQuestion() + "</b></html>"));
+
+        ButtonGroup group = new ButtonGroup();
+        java.util.List<JRadioButton> options = new java.util.ArrayList<>();
+
+        for (Answers a : answersList) {
+            JRadioButton btn = new JRadioButton(a.getAnswer());
+            group.add(btn);
+            panel.add(btn);
+            options.add(btn);
+        }
+
+        int result = JOptionPane.showConfirmDialog( this, panel, "Choose an Answer", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+        if (result == JOptionPane.OK_OPTION) {
+            ChoiceSelection(options, selectedQuestion);
+        }
+    }
+
+private void ChoiceSelection(java.util.List<JRadioButton> options, 
+                                   Questions selectedQuestion) {
+    for (JRadioButton rb : options) {
+        if (rb.isSelected()) {
+            displayArea.append("Selected \"" + rb.getText() + "\" for: " + selectedQuestion.getQuestion() + "\n");
+            return;
+        }
+    }
+    JOptionPane.showMessageDialog(this, "Please select an answer");
+}
 
     public static void main(String[] args) { 
         new QuizAppGUI();
