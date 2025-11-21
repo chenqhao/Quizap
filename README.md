@@ -25,3 +25,15 @@ During my first year of university, I had a course where it was all just memoriz
 - As a User, I want to be able to see my answers 
 - As a User, I want to be able to save my courses and its contents 
 - As a User, I want to be able to load my courses and its contents
+
+
+## Instructions for End User
+
+- click add user and insert user name
+- you can add courses by clicking on the "Add Course" Button
+- you can add a Unit to a select course, by click on a the course dropdown and clicking the desired Course and then clicking "Add Unit"
+- you can add a Question to a select Unit, by click on a the Unit dropdown and clicking the desired Question and then clicking "Add Question"
+- you can add a Answer to a select Question, by click on a the Question dropdown and clicking the desired Question and then clicking "Add Answer"
+- you can save your data by clicking on the "save" button on the bottom 
+- you can load your data by clicking on the "load" button on the bottom
+- you can start the quiz by clicking on the "start quiz" button on the right

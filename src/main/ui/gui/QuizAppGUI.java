@@ -4,11 +4,10 @@ import javax.swing.*;
 
 import ca.ubc.cs.ExcludeFromJacocoGeneratedReport;
 import java.util.*;
-
+import java.util.List;
 import java.awt.*;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.lang.reflect.Array;
 
 import model.*;
 import persistance.JsonReader;
@@ -16,13 +15,13 @@ import persistance.JsonWriter;
 
 @ExcludeFromJacocoGeneratedReport
 public class QuizAppGUI extends JFrame {
+    
     private static final String JSON_STORE = "./data/user.json";
 
     private User user;
     private Units units;
-    private Courses selectedQuestion;
+    private Courses course;
     private Questions questions;
-    private Answers answers;
     
     private JButton userButton;
     private JButton courseButton;
@@ -46,28 +45,46 @@ public class QuizAppGUI extends JFrame {
 
     private JTextArea displayArea;
 
+    private JPanel buttonPanel;
+    private JPanel dataPanel;
+    private JPanel quizPanel;
 
-    @SuppressWarnings("methodlength")
+
+    // represents the GUI of the quizApp
     public QuizAppGUI() { 
 
-        // adding frame
         super("Quizzard app");
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(1000,500);
         setLocationRelativeTo(null);
 
+        constructComponents();
+
+        addAllComponentsAndSet();
+
+        displayArea = new JTextArea();
+        displayArea.setEditable(false);
+        add(new JScrollPane(displayArea), BorderLayout.CENTER);
+
+        setListeners();
+
+        setVisible(true);
+
+    }  
+
+    // MODIFIES: this
+    // EFFECTS: Constructs components of the GUI
+    public void constructComponents() {
+        
         courseDropdown = new JComboBox<>();
         unitDropdown = new JComboBox<>();
         questionDropdown = new JComboBox<>();
         answerDropdown = new JComboBox<>();
 
-
-        // adding save functions
         jsonWriter = new JsonWriter(JSON_STORE);
         jsonReader = new JsonReader(JSON_STORE);
 
-        // adding buttons
         userButton = new JButton("Add User");
         courseButton = new JButton("Add Course");
         unitsButton = new JButton("Add Unit");
@@ -81,13 +98,12 @@ public class QuizAppGUI extends JFrame {
         startQuiz = new JButton("Start Quiz");
         answerQuestion = new JButton("answer question");
 
-        // panel stuff
-        JPanel buttonPanel = new JPanel();
-        JPanel dataPanel = new JPanel();
-        JPanel quizPanel = new JPanel();
+        setStateOfComponents();
+    }
 
-        buttonPanel.setLayout(new GridLayout(1, 5, 10, 10));
-        buttonPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10)); 
+    // MODIFIES: this
+    // EFFECTS: sets state to false for all at first to help user navigate 
+    public void setStateOfComponents() {
 
         courseButton.setEnabled(false);
         unitsButton.setEnabled(false);
@@ -97,6 +113,39 @@ public class QuizAppGUI extends JFrame {
         unitDropdown.setEnabled(false);
         questionDropdown.setEnabled(false);
         answerDropdown.setEnabled(false);
+    }
+
+    // MODIFIES: this 
+    // EFFECTS: gives buttons actions when clicked 
+    public void setListeners() {
+
+        userButton.addActionListener(e -> addUser());
+        courseButton.addActionListener(e -> addCourse());
+        unitsButton.addActionListener(e -> addUnitToCourse());
+        questionsButton.addActionListener(e -> addQuestionToUnit());
+        answerButton.addActionListener(e -> addAnswerToQuestion());
+
+        courseDropdown.addActionListener(e -> updateUnitsDropdown());
+        unitDropdown.addActionListener(e -> updateQuestionsDropdown());
+        questionDropdown.addActionListener(e -> updateAnswersDropdown());
+        
+        saveButton.addActionListener(e -> saveData());
+        loadButton.addActionListener(e -> loadData());
+
+        startQuiz.addActionListener(e -> startingQuiz());
+        answerQuestion.addActionListener(e -> selectingQuestion());
+    }
+
+    // MODIFIES: this 
+    // EFFECTS: adds buttons to panels in the GUI 
+    public void addAllComponentsAndSet() { 
+
+        buttonPanel = new JPanel();
+        dataPanel = new JPanel();
+        quizPanel = new JPanel();
+
+        buttonPanel.setLayout(new GridLayout(1, 5, 10, 10));
+        buttonPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10)); 
 
         buttonPanel.add(userButton);
         buttonPanel.add(courseButton);
@@ -122,28 +171,10 @@ public class QuizAppGUI extends JFrame {
         displayArea.setEditable(false);
         add(new JScrollPane(displayArea), BorderLayout.CENTER);
 
+    }
 
-        userButton.addActionListener(e -> addUser());
-        courseButton.addActionListener(e -> addCourse());
-        unitsButton.addActionListener(e -> addUnitToCourse());
-        questionsButton.addActionListener(e -> addQuestionToUnit());
-        answerButton.addActionListener(e -> addAnswerToQuestion());
-
-        courseDropdown.addActionListener(e -> updateUnitsDropdown());
-        unitDropdown.addActionListener(e -> updateQuestionsDropdown());
-        questionDropdown.addActionListener(e -> updateAnswersDropdown());
-        
-        saveButton.addActionListener(e -> saveData());
-        loadButton.addActionListener(e -> loadData());
-
-        startQuiz.addActionListener(e -> startingQuiz());
-        answerQuestion.addActionListener(e -> selectingQuestion());
-
-    
-        setVisible(true);
-
-    }  
-
+    // MODIFIES: this 
+    // EFFECTS: allows the user to add their own user with given name 
     public void addUser() { 
         String name = JOptionPane.showInputDialog(this, "Enter your name:");
         if (name != null && !name.trim().isEmpty()) {  
@@ -158,11 +189,13 @@ public class QuizAppGUI extends JFrame {
         }
     }
 
+    // MODIFIES: this, user
+    // EFFECTS: adds Course to given User and dropdown
     public void addCourse() {
         String courseName = JOptionPane.showInputDialog(this, "Enter course name:");
         if (courseName != null && !courseName.trim().isEmpty()) {  
-            selectedQuestion = new Courses(courseName.trim());
-            user.getCourses().add(selectedQuestion);
+            course = new Courses(courseName.trim());
+            user.getCourses().add(course);
             courseDropdown.addItem(courseName.trim());
             displayArea.append("New course added: " + courseName + "\n");
             unitsButton.setEnabled(true);
@@ -174,6 +207,7 @@ public class QuizAppGUI extends JFrame {
         }
     }
 
+    // EFFECTS: Gets selected course in the course dropdown
     private Courses getSelectedCourse() {
         int index = courseDropdown.getSelectedIndex();
         if (index >= 0 && index < user.getCourses().size()) {
@@ -182,6 +216,8 @@ public class QuizAppGUI extends JFrame {
         return null;
     }
 
+    // MODIFIES: this, course
+    // EFFECTS: adds unit to selcted course and dropdown
     public void addUnitToCourse() {
         Courses selectedCourse = getSelectedCourse();
         if (selectedCourse == null) {
@@ -205,6 +241,7 @@ public class QuizAppGUI extends JFrame {
         }
     }  
 
+    // EFFECTS: gets selected unit from dropdown
     private Units getSelectedUnit() {
         Courses selectedCourse = getSelectedCourse();
         if (selectedCourse == null) {
@@ -218,7 +255,8 @@ public class QuizAppGUI extends JFrame {
         return null;
     }
 
-
+    // MODIFIES: this, unit 
+    // EFFECTS: adds question to selected unit and dropdown
     public void addQuestionToUnit() {
         Units selectedUnit = getSelectedUnit();
         if (selectedUnit == null) {
@@ -243,6 +281,7 @@ public class QuizAppGUI extends JFrame {
 
     }
 
+    // EFFECTS: gets selected question from dropdown
     private Questions getSelectedQuestion() {
         Units selectedUnit = getSelectedUnit();
         if (selectedUnit == null) {
@@ -256,29 +295,70 @@ public class QuizAppGUI extends JFrame {
     }
 
 
+ 
+    // MODIFIES: this, question
+    // EFFECTS: no questions selected if no question is selected,
+    // otherwise:
+    // display prompt for answer text and if correct
+    // if user clicks yes and no empty creates answer and adds to selected question and dropdown
+    // if user clicks yes and is empty a error pops up and plays a sound to let the user know 
+    // if user clicks cancer does nothing 
     public void addAnswerToQuestion() {
-        Questions selectedQuestions = getSelectedQuestion();
-        if (selectedQuestions == null) {
+        Questions selectedQuestion = getSelectedQuestion();
+        if (selectedQuestion == null) {
             displayArea.append("No question selected.\n");
             return;
         }
 
-        String answer = JOptionPane.showInputDialog(this, "Enter answer for " + selectedQuestions.getQuestion() + ":");
-        if (answer != null && !answer.trim().isEmpty()) {
-            answers = new Answers(answer);
-            selectedQuestions.addAnswers(answers);
-            answerDropdown.addItem(answer.trim());
-            displayArea.append("Answer '" + answer + "' added to " + selectedQuestions.getQuestion() + ".\n");
-            updateAnswersDropdown();
-            answerDropdown.setEnabled(true);
-        } else  {
-            displayArea.append("No Answer has been added" + "\n");
-            Toolkit.getDefaultToolkit().beep();
-            JOptionPane.showMessageDialog(this, "No answer input added");
+        JTextField answerField = new JTextField();
+        JCheckBox correctCheck = new JCheckBox("This is a correct answer");
+        JPanel panel = createAnswerPanel(answerField, correctCheck);
+
+        int result = JOptionPane.showConfirmDialog(this, panel, "Add Answer", 
+                        JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+
+        if (result == JOptionPane.OK_OPTION) {
+            validateAndAddAnswer(selectedQuestion, answerField.getText().trim(), correctCheck.isSelected());
         }
     }
 
+    // EFFECTS: creates a panel for user to enter answer name 
+    private JPanel createAnswerPanel(JTextField field, JCheckBox check) {
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        panel.add(new JLabel("Enter answer:"));
+        panel.add(field);
+        panel.add(check);
+        return panel;
+    }
 
+    // MODIFIES: this, question
+    // EFFECTS: if text.size() == 0, show message saying no answer added
+    // else creates new answer with name and addes it to selected question, adds to dropdown 
+    private void validateAndAddAnswer(Questions q, String text, boolean isCorrect) {
+        if (text.isEmpty()) {
+            displayArea.append("No answer added.\n");
+            Toolkit.getDefaultToolkit().beep();
+            JOptionPane.showMessageDialog(this, "No answer input added");
+            return;
+        }
+
+        Answers newAnswer = new Answers(text);
+        if (isCorrect) {
+            newAnswer.setCorrect();
+        }
+        q.addAnswers(newAnswer);
+
+        displayArea.append("Answer '" + text + "' added to " + q.getQuestion() 
+                            + (isCorrect ? " (correct)\n" : "\n"));
+        
+        updateAnswersDropdown();
+        answerDropdown.setEnabled(true);
+    }
+
+
+    // MODIFIES: this
+    // EFFECTS: gives correct dropdown for each coures selected
     private void updateUnitsDropdown() {
         unitDropdown.removeAllItems();
         Courses selectedCourse = getSelectedCourse();
@@ -292,6 +372,8 @@ public class QuizAppGUI extends JFrame {
         }
     }
 
+    // MODIFIES: this 
+    // EFFECTS: gives correct dropdown for each question selected
     private void updateQuestionsDropdown() {
         questionDropdown.removeAllItems();
         Units selectedUnit = getSelectedUnit();
@@ -305,6 +387,8 @@ public class QuizAppGUI extends JFrame {
         }
     }
 
+    // MODIFIES: this 
+    // EFFECTS: gives correct dropdown for each answer selected
     private void updateAnswersDropdown() {
         answerDropdown.removeAllItems();
         Questions selectedQuestion = getSelectedQuestion();
@@ -319,6 +403,8 @@ public class QuizAppGUI extends JFrame {
     }
 
 
+    // MODIFIES: this
+    // EFFECTS: save user to selected file
     private void saveData() {
         try {
             jsonWriter.open();
@@ -331,6 +417,8 @@ public class QuizAppGUI extends JFrame {
         }
     }
 
+    // MODIFIES: this, user 
+    // EFFECTS: loads user file 
     private void loadData() {
         try {
             user = jsonReader.read();
@@ -338,12 +426,15 @@ public class QuizAppGUI extends JFrame {
                 courseDropdown.addItem(c.getCourse());
             }
             enableAll(true);
+            userButton.setText("Change name");
             displayArea.append("Loaded " + user.getUser() + " from: " + JSON_STORE + "\n");
         } catch (IOException e) {
             displayArea.append("Unable to read from file: " + JSON_STORE + "\n");
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: either enables all as true or false depending on enable
     private void enableAll(boolean enable) {
         courseButton.setEnabled(enable);
         unitsButton.setEnabled(enable);
@@ -354,6 +445,8 @@ public class QuizAppGUI extends JFrame {
         courseDropdown.setEnabled(enable);
     }
 
+    // MODIFIES: this
+    // EFFECTS: makes new frame for quiz
     private void startingQuiz() { 
         JFrame quizWindow = new JFrame(); 
         JPanel informationPanel = new JPanel();
@@ -367,12 +460,13 @@ public class QuizAppGUI extends JFrame {
         informationPanel.add(courseDropdown);
         informationPanel.add(unitDropdown);
         informationPanel.add(questionDropdown);
-        informationPanel.add(answerDropdown);
         informationPanel.add(answerQuestion);
         quizWindow.setVisible(true);
     }   
 
-
+    // MODIFIES: this
+    // EFFECTS: handles selecting question and goes into either written if only a single answer 
+    // or multiple if there are more than one
     private void selectingQuestion() { 
         Questions selectedQuestion = getSelectedQuestion();
         if (selectedQuestion == null) {
@@ -393,6 +487,8 @@ public class QuizAppGUI extends JFrame {
         }
     }
 
+    // MODIFIES: this 
+    // EFFECT: gives user a written answer prompt 
     private void showWrittenQuestion(Questions selectedQuestion) {
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
@@ -400,7 +496,8 @@ public class QuizAppGUI extends JFrame {
         JTextField answerField = new JTextField(20);
         panel.add(answerField);
 
-        int result = JOptionPane.showConfirmDialog( this, panel, "Answer Question", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+        int result = JOptionPane.showConfirmDialog(this, panel, "Question",  
+                                                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 
         if (result == JOptionPane.OK_OPTION) {
             String answer = answerField.getText().trim();
@@ -418,38 +515,74 @@ public class QuizAppGUI extends JFrame {
         }
     }
 
-    private void showMultipleChoiceQuestion(Questions selectedQuestion, java.util.List<Answers> answersList) {
+    // MODIFIES: this 
+    // EFFECTS: gives user a multiple choice prompt with check boxes 
+    private void showMultipleChoiceQuestion(Questions selectedQuestion, List<Answers> answersList) {
+
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         panel.add(new JLabel("<html><b>" + selectedQuestion.getQuestion() + "</b></html>"));
 
-        ButtonGroup group = new ButtonGroup();
-        java.util.List<JRadioButton> options = new java.util.ArrayList<>();
+        List<JCheckBox> checkboxes = new ArrayList<>();
 
         for (Answers a : answersList) {
-            JRadioButton btn = new JRadioButton(a.getAnswer());
-            group.add(btn);
-            panel.add(btn);
-            options.add(btn);
+            JCheckBox cb = new JCheckBox(a.getAnswer());
+            panel.add(cb);
+            checkboxes.add(cb);
         }
 
-        int result = JOptionPane.showConfirmDialog( this, panel, "Choose an Answer", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+        ImageIcon icon = new ImageIcon("./data/images.png");
+
+        Object[] dialogContent = { icon, panel };
+
+        int result = JOptionPane.showConfirmDialog(this, dialogContent, 
+                "Choose Answers", JOptionPane.OK_CANCEL_OPTION);
+
         if (result == JOptionPane.OK_OPTION) {
-            ChoiceSelection(options, selectedQuestion);
+            gradeSelections(selectedQuestion, answersList, checkboxes);
         }
     }
 
-private void ChoiceSelection(java.util.List<JRadioButton> options, 
-                                   Questions selectedQuestion) {
-    for (JRadioButton rb : options) {
-        if (rb.isSelected()) {
-            displayArea.append("Selected \"" + rb.getText() + "\" for: " + selectedQuestion.getQuestion() + "\n");
-            return;
+    // MODIFIES: this
+    // EFFECTS: handles checking if checked box is correct or not and returns 
+    // Corresponding message correct or incorrec through comparsion of boolean
+    // through is model is correct and that model box is checked given the same index
+    private void gradeSelections(Questions q, List<Answers> answersList, List<JCheckBox> boxes) {
+
+        List<String> selected = new ArrayList<>();
+        List<String> correctAnswers = new ArrayList<>();
+
+        boolean allCorrect = true;
+
+        for (int i = 0; i < answersList.size(); i++) {
+            Answers model = answersList.get(i);
+            JCheckBox box = boxes.get(i);
+
+            if (box.isSelected()) {
+                selected.add(model.getAnswer());
+            }
+
+            if (model.isCorrect()) {
+                correctAnswers.add(model.getAnswer());
+            }
+
+            if (box.isSelected() != model.isCorrect()) {
+                allCorrect = false;
+            }
+        }
+
+        displayArea.append("Selected: " + selected + "\n");
+
+        if (allCorrect) {
+            displayArea.append("Correct \n");
+        } else {
+            displayArea.append("Incorrect \n");
+            displayArea.append("Correct answers: " + correctAnswers + "\n");
         }
     }
-    JOptionPane.showMessageDialog(this, "Please select an answer");
-}
 
+
+    // EFFECTS: runs the entire GUI
     public static void main(String[] args) { 
         new QuizAppGUI();
     }

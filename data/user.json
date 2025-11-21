@@ -3,30 +3,49 @@
     "course": [
         {
             "unit": [{
-                "unit": "Abstrations",
+                "unit": "Abstractions",
                 "question": [{
                     "isWritten": false,
-                    "question": "what is a abstraction class",
-                    "answer": [{
-                        "answer": "an abstraction class",
-                        "correct": false
-                    }]
+                    "question": "what is a HashMap",
+                    "answer": [
+                        {
+                            "answer": "a hashmap",
+                            "correct": true
+                        },
+                        {
+                            "answer": "a hashset",
+                            "correct": false
+                        }
+                    ]
                 }]
             }],
             "course": "CPSC210"
         },
         {
-            "unit": [{
-                "unit": "Week9",
-                "question": [{
-                    "isWritten": false,
-                    "question": "what is a gradient ",
-                    "answer": [{
-                        "answer": "a gradient",
-                        "correct": false
+            "unit": [
+                {
+                    "unit": "Week9",
+                    "question": [{
+                        "isWritten": false,
+                        "question": "what is dx",
+                        "answer": [{
+                            "answer": "dx",
+                            "correct": true
+                        }]
                     }]
-                }]
-            }],
+                },
+                {
+                    "unit": "Week10",
+                    "question": [{
+                        "isWritten": false,
+                        "question": "what is integral ",
+                        "answer": [{
+                            "answer": "integral",
+                            "correct": true
+                        }]
+                    }]
+                }
+            ],
             "course": "MATH200"
         }
     ]
