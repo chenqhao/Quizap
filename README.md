@@ -37,3 +37,31 @@ During my first year of university, I had a course where it was all just memoriz
 - you can save your data by clicking on the "save" button on the bottom 
 - you can load your data by clicking on the "load" button on the bottom
 - you can start the quiz by clicking on the "start quiz" button on the right
+
+
+## Phase 4: Task 2
+
+```
+WindowListener method called: windowActivated.
+
+WindowListener method called: windowOpened.
+
+WindowListener method called: windowDeactivated.
+
+WindowListener method called: windowActivated.
+
+Thu Nov 27 05:54:32 PST 2025
+added CPSC210 to Howie
+
+Thu Nov 27 05:54:32 PST 2025
+added Design 6 to CPSC210
+
+Thu Nov 27 05:54:32 PST 2025
+added What is a singleton  to Design 6
+
+Thu Nov 27 05:54:32 PST 2025
+set a singleton as correct
+
+Thu Nov 27 05:54:32 PST 2025
+added a singleton to What is a singleton 
+```

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import ca.ubc.cs.ExcludeFromJacocoGeneratedReport;
 import persistance.Writable;
 
 // represents questions that has a question description, list of answers and completion status 
@@ -28,10 +29,15 @@ public class Questions implements Writable {
     // REQUIRES: answer is not null
     // MODIFIES: this
     // EFFECTS: adds answers to a questions list of answers 
-    public void addAnswers(Answers answer) {
-        if (!answers.contains(answer)) {
-            answers.add(answer);
+    public boolean addAnswers(Answers answer) {
+        for (Answers a : answers) { 
+            if (a.getAnswer().equalsIgnoreCase(answer.getAnswer())) {
+                return false; 
+            }
         }
+        answers.add(answer);
+        EventLog.getInstance().logEvent(new Event("added " + answer + " to " + question));
+        return true;
     }
 
     // MODIFIES: this 
@@ -93,8 +99,41 @@ public class Questions implements Writable {
         for (Answers a: answers) {
             jsonArray.put(a.toJson());
         }
-
         return jsonArray;
     }
+
+    @ExcludeFromJacocoGeneratedReport
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((question == null) ? 0 : question.hashCode());
+        return result;
+    }
+
+    @ExcludeFromJacocoGeneratedReport
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        Questions other = (Questions) obj;
+        if (question == null) {
+            if (other.question != null) {
+                return false;
+            }
+        } else if (!question.equals(other.question)) {
+            return false;
+        }
+        return true;
+    }
+
+    
 
 }

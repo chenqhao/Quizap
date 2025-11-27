@@ -6,15 +6,17 @@ import ca.ubc.cs.ExcludeFromJacocoGeneratedReport;
 import java.util.*;
 import java.util.List;
 import java.awt.*;
+import java.awt.event.*;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import model.*;
+import model.Event;
 import persistance.JsonReader;
 import persistance.JsonWriter;
 
 @ExcludeFromJacocoGeneratedReport
-public class QuizAppGUI extends JFrame {
+public class QuizAppGUI extends JFrame implements WindowListener, WindowFocusListener, WindowStateListener {
     
     private static final String JSON_STORE = "./data/user.json";
 
@@ -28,6 +30,7 @@ public class QuizAppGUI extends JFrame {
     private JButton unitsButton;
     private JButton questionsButton;
     private JButton answerButton;
+    private JButton changeNameButton;
 
     private JButton startQuiz;
     private JButton answerQuestion;
@@ -61,6 +64,10 @@ public class QuizAppGUI extends JFrame {
 
         constructComponents();
 
+        buttonPanel = new JPanel();
+        dataPanel = new JPanel();
+        quizPanel = new JPanel();
+
         addAllComponentsAndSet();
 
         displayArea = new JTextArea();
@@ -71,7 +78,9 @@ public class QuizAppGUI extends JFrame {
 
         setVisible(true);
 
-    }  
+        addWindowListener(this);
+
+    }
 
     // MODIFIES: this
     // EFFECTS: Constructs components of the GUI
@@ -90,6 +99,7 @@ public class QuizAppGUI extends JFrame {
         unitsButton = new JButton("Add Unit");
         questionsButton = new JButton("Add Question");
         answerButton = new JButton("Add Answer");
+        changeNameButton = new JButton("Change Name");
 
         startQuiz = new JButton("Start Quiz");
         saveButton = new JButton("Save");
@@ -99,6 +109,7 @@ public class QuizAppGUI extends JFrame {
         answerQuestion = new JButton("answer question");
 
         setStateOfComponents();
+
     }
 
     // MODIFIES: this
@@ -113,6 +124,7 @@ public class QuizAppGUI extends JFrame {
         unitDropdown.setEnabled(false);
         questionDropdown.setEnabled(false);
         answerDropdown.setEnabled(false);
+        changeNameButton.setEnabled(false);
     }
 
     // MODIFIES: this 
@@ -124,6 +136,7 @@ public class QuizAppGUI extends JFrame {
         unitsButton.addActionListener(e -> addUnitToCourse());
         questionsButton.addActionListener(e -> addQuestionToUnit());
         answerButton.addActionListener(e -> addAnswerToQuestion());
+        changeNameButton.addActionListener(e -> changeName());
 
         courseDropdown.addActionListener(e -> updateUnitsDropdown());
         unitDropdown.addActionListener(e -> updateQuestionsDropdown());
@@ -140,10 +153,6 @@ public class QuizAppGUI extends JFrame {
     // EFFECTS: adds buttons to panels in the GUI 
     public void addAllComponentsAndSet() { 
 
-        buttonPanel = new JPanel();
-        dataPanel = new JPanel();
-        quizPanel = new JPanel();
-
         buttonPanel.setLayout(new GridLayout(1, 5, 10, 10));
         buttonPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10)); 
 
@@ -156,6 +165,7 @@ public class QuizAppGUI extends JFrame {
         buttonPanel.add(unitDropdown);
         buttonPanel.add(questionDropdown);
         buttonPanel.add(answerDropdown);
+        buttonPanel.add(changeNameButton);
 
 
         dataPanel.add(saveButton);
@@ -171,6 +181,7 @@ public class QuizAppGUI extends JFrame {
         displayArea.setEditable(false);
         add(new JScrollPane(displayArea), BorderLayout.CENTER);
 
+
     }
 
     // MODIFIES: this 
@@ -180,13 +191,31 @@ public class QuizAppGUI extends JFrame {
         if (name != null && !name.trim().isEmpty()) {  
             user = new User(name.trim());
             displayArea.append("New user created: " + user.getUser() + "\n");
-            userButton.setText("Change Name");
             courseButton.setEnabled(true);
+            userButton.setEnabled(false);
+            changeNameButton.setEnabled(true);
         } else { 
             displayArea.append("No name has been added" + "\n");
             Toolkit.getDefaultToolkit().beep();
             JOptionPane.showMessageDialog(this, "No name input added");
         }
+    }
+
+    // MODIFIES: this, name
+    // EFFECTS: allows user to change their name
+    public void changeName() {
+        String name = JOptionPane.showInputDialog(this, "Enter your name:");
+        if (name == null  || name.trim().isEmpty()) { 
+            displayArea.append("Name has not been changed" + "\n");
+            Toolkit.getDefaultToolkit().beep();
+            JOptionPane.showMessageDialog(this, "no name input");
+        } else {
+            user.changeName(name);
+            displayArea.append("Name has been changed to " + name + "\n");
+            JOptionPane.showMessageDialog(this, "Name has been changed to " + name);
+        }
+
+
     }
 
     // MODIFIES: this, user
@@ -195,15 +224,20 @@ public class QuizAppGUI extends JFrame {
         String courseName = JOptionPane.showInputDialog(this, "Enter course name:");
         if (courseName != null && !courseName.trim().isEmpty()) {  
             course = new Courses(courseName.trim());
-            user.getCourses().add(course);
+        } else { 
+            Toolkit.getDefaultToolkit().beep();
+            JOptionPane.showMessageDialog(this, "No Course input added");
+            return; 
+        }
+        if (user.addCourses(course)) {
             courseDropdown.addItem(courseName.trim());
             displayArea.append("New course added: " + courseName + "\n");
             unitsButton.setEnabled(true);
             courseDropdown.setEnabled(true);
         } else { 
-            displayArea.append("No course has been added" + "\n");
+            displayArea.append("Duplicate Course, no course added" + "\n");
             Toolkit.getDefaultToolkit().beep();
-            JOptionPane.showMessageDialog(this, "No Course input added");
+            JOptionPane.showMessageDialog(this, "This Course Already Exists");
         }
     }
 
@@ -226,20 +260,25 @@ public class QuizAppGUI extends JFrame {
         }
 
         String unitName = JOptionPane.showInputDialog(this, "Enter unit name for " + selectedCourse.getCourse() + ":");
-        if (unitName != null && !unitName.trim().isEmpty()) {
-            units = new Units(unitName);
-            selectedCourse.addUnits(units);
+        if (unitName == null || unitName.trim().isEmpty()) {
+            Toolkit.getDefaultToolkit().beep();
+            JOptionPane.showMessageDialog(this, "No unit input"); 
+            return;
+
+        }
+        units = new Units(unitName);
+        if (selectedCourse.addUnits(units)) {
             unitDropdown.addItem(unitName.trim());
             displayArea.append("Unit '" + unitName + "' added to " + selectedCourse.getCourse() + ".\n");
             updateUnitsDropdown();
             questionsButton.setEnabled(true);
             unitDropdown.setEnabled(true);
         } else  {
-            displayArea.append("No units has been added" + "\n");
+            displayArea.append("Duplicate Unit, no unit added" + "\n");
             Toolkit.getDefaultToolkit().beep();
-            JOptionPane.showMessageDialog(this, "No unit input added");
+            JOptionPane.showMessageDialog(this, "This Unit Already Exists");
         }
-    }  
+    }
 
     // EFFECTS: gets selected unit from dropdown
     private Units getSelectedUnit() {
@@ -265,20 +304,24 @@ public class QuizAppGUI extends JFrame {
         }
 
         String questionName = JOptionPane.showInputDialog(this, "Enter question for " + selectedUnit.getUnit() + ":");
-        if (questionName != null && !questionName.trim().isEmpty()) {
-            questions = new Questions(questionName);
-            selectedUnit.addQuestions(questions);
+        if (questionName == null || questionName.trim().isEmpty()) {
+            Toolkit.getDefaultToolkit().beep();
+            JOptionPane.showMessageDialog(this, "No question input added");
+            return; 
+            
+        }
+        questions = new Questions(questionName);
+        if (selectedUnit.addQuestions(questions)) {
             questionDropdown.addItem(questionName.trim());
             displayArea.append("Question '" + questionName + "' added to " + selectedUnit.getUnit() + ".\n");
             updateQuestionsDropdown();
             answerButton.setEnabled(true);
             questionDropdown.setEnabled(true);
         } else  {
-            displayArea.append("No questions has been added" + "\n");
+            displayArea.append("Duplicate Question, no question added" + "\n");
             Toolkit.getDefaultToolkit().beep();
-            JOptionPane.showMessageDialog(this, "No question input added");
+            JOptionPane.showMessageDialog(this, "This Question Already Exists");
         }
-
     }
 
     // EFFECTS: gets selected question from dropdown
@@ -347,13 +390,18 @@ public class QuizAppGUI extends JFrame {
         if (isCorrect) {
             newAnswer.setCorrect();
         }
-        q.addAnswers(newAnswer);
+        if (q.addAnswers(newAnswer)) {
 
-        displayArea.append("Answer '" + text + "' added to " + q.getQuestion() 
-                            + (isCorrect ? " (correct)\n" : "\n"));
-        
-        updateAnswersDropdown();
-        answerDropdown.setEnabled(true);
+            displayArea.append("Answer '" + text + "' added to " + q.getQuestion() 
+                                + (isCorrect ? " (correct)\n" : "\n"));
+            
+            updateAnswersDropdown();
+            answerDropdown.setEnabled(true);
+        } else { 
+            displayArea.append("Duplicate Answer, no answer added.\n");
+            Toolkit.getDefaultToolkit().beep();
+            JOptionPane.showMessageDialog(this, "This Answer Already Exists");
+        }
     }
 
 
@@ -426,7 +474,7 @@ public class QuizAppGUI extends JFrame {
                 courseDropdown.addItem(c.getCourse());
             }
             enableAll(true);
-            userButton.setText("Change name");
+            userButton.setEnabled(false);
             displayArea.append("Loaded " + user.getUser() + " from: " + JSON_STORE + "\n");
         } catch (IOException e) {
             displayArea.append("Unable to read from file: " + JSON_STORE + "\n");
@@ -443,6 +491,7 @@ public class QuizAppGUI extends JFrame {
         saveButton.setEnabled(enable);
         loadButton.setEnabled(enable);
         courseDropdown.setEnabled(enable);
+        changeNameButton.setEnabled(enable);
     }
 
     // MODIFIES: this
@@ -579,6 +628,59 @@ public class QuizAppGUI extends JFrame {
             displayArea.append("Incorrect \n");
             displayArea.append("Correct answers: " + correctAnswers + "\n");
         }
+    }
+
+    @Override
+    public void windowClosing(WindowEvent e) {
+        for (Event event : EventLog.getInstance()) {
+            System.out.println(event);
+        }
+    }
+
+    @Override
+    public void windowClosed(WindowEvent e) {
+        System.out.println("WindowListener method called: windowClosed.");
+    }
+
+    @Override
+    public void windowOpened(WindowEvent e) {
+        System.out.println("WindowListener method called: windowOpened.");
+    }
+
+    @Override
+    public void windowIconified(WindowEvent e) {
+        System.out.println("WindowListener method called: windowIconified.");
+    }
+
+    @Override
+    public void windowDeiconified(WindowEvent e) {
+        System.out.println("WindowListener method called: windowDeiconified.");
+    }
+
+    @Override
+    public void windowActivated(WindowEvent e) {
+        System.out.println("WindowListener method called: windowActivated.");
+    }
+
+    @Override
+    public void windowDeactivated(WindowEvent e) {
+        System.out.println("WindowListener method called: windowDeactivated.");
+    }
+
+    @Override
+    public void windowGainedFocus(WindowEvent e) { 
+        System.out.println("WindowFocusListener method called: windowGainedFocus.");
+    }
+
+    @Override
+    public void windowLostFocus(WindowEvent e) {
+        System.out.println("WindowFocusListener method called: windowLostFocus.");
+    }
+
+    @Override
+    public void windowStateChanged(WindowEvent e) {
+        System.out.println("WindowStateListener method called: windowStateChanged.");
+
     }
 
 

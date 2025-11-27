@@ -53,4 +53,17 @@ public class TestUser {
         ArrayList<Courses> courses = testUser.getCourses();
         assertEquals(1, courses.size());
     }
+
+    @Test
+    void testChangeName() {
+        testUser.changeName("Jaden");
+        assertTrue(testUser.getUser().equals("Jaden"));
+    }
+
+    @Test
+    void testChangeNameNull() {
+        testUser.changeName(null);
+        assertTrue(testUser.getUser().equals("Howie"));
+    }
+
 }

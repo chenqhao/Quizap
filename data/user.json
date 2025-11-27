@@ -1,52 +1,17 @@
 {
     "name": "Howie",
-    "course": [
-        {
-            "unit": [{
-                "unit": "Abstractions",
-                "question": [{
-                    "isWritten": false,
-                    "question": "what is a HashMap",
-                    "answer": [
-                        {
-                            "answer": "a hashmap",
-                            "correct": true
-                        },
-                        {
-                            "answer": "a hashset",
-                            "correct": false
-                        }
-                    ]
+    "course": [{
+        "unit": [{
+            "unit": "Design 6",
+            "question": [{
+                "isWritten": false,
+                "question": "What is a singleton ",
+                "answer": [{
+                    "answer": "a singleton",
+                    "correct": true
                 }]
-            }],
-            "course": "CPSC210"
-        },
-        {
-            "unit": [
-                {
-                    "unit": "Week9",
-                    "question": [{
-                        "isWritten": false,
-                        "question": "what is dx",
-                        "answer": [{
-                            "answer": "dx",
-                            "correct": true
-                        }]
-                    }]
-                },
-                {
-                    "unit": "Week10",
-                    "question": [{
-                        "isWritten": false,
-                        "question": "what is integral ",
-                        "answer": [{
-                            "answer": "integral",
-                            "correct": true
-                        }]
-                    }]
-                }
-            ],
-            "course": "MATH200"
-        }
-    ]
+            }]
+        }],
+        "course": "CPSC210"
+    }]
 }
