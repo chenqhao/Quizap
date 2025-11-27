@@ -44,6 +44,7 @@ public class Units implements Writable {
     }
 
     // EFFECTS: returns a string representation of the unit
+    @Override
     public String toString() {
         return unit;
     }

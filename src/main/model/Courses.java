@@ -37,6 +37,7 @@ public class Courses implements Writable {
     }
 
     // EFFECTS: returns a string representation of the courses
+    @Override
     public String toString() {
         return courseName;
     }

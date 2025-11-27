@@ -53,6 +53,7 @@ public class Questions implements Writable {
     }
 
     // EFFECTS: returns a string representation of the question
+    @Override
     public String toString() {
         return question;
     }
