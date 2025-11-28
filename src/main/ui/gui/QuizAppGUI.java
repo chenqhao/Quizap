@@ -683,7 +683,6 @@ public class QuizAppGUI extends JFrame implements WindowListener, WindowFocusLis
 
     }
 
-
     // EFFECTS: runs the entire GUI
     public static void main(String[] args) { 
         new QuizAppGUI();
