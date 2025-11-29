@@ -20,6 +20,7 @@ public class User implements Writable {
     public User(String name) {
         this.name = name;
         this.courses = new ArrayList<>();
+        EventLog.getInstance().logEvent(new Event("User created: " + name));
     }
 
     // REQUIRES: course is not null
@@ -48,8 +49,8 @@ public class User implements Writable {
     // EFFECTS: changes the user name given newName input
     public void changeName(String newName) {
         if (newName != null) {
-            this.name = newName;
             EventLog.getInstance().logEvent(new Event("changed  " + this.name + " to " + newName));
+            this.name = newName;
         }
 
     }
