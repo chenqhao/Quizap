@@ -49,7 +49,7 @@ public class User implements Writable {
     // EFFECTS: changes the user name given newName input
     public void changeName(String newName) {
         if (newName != null) {
-            EventLog.getInstance().logEvent(new Event("changed  " + this.name + " to " + newName));
+            EventLog.getInstance().logEvent(new Event("changed " + this.name + " to " + newName));
             this.name = newName;
         }
 
