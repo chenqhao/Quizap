@@ -630,6 +630,7 @@ public class QuizAppGUI extends JFrame implements WindowListener, WindowFocusLis
         }
     }
 
+    // EFFECTS: prints out all events in console when the user closes the application
     @Override
     public void windowClosing(WindowEvent e) {
         for (Event event : EventLog.getInstance()) {
@@ -637,46 +638,55 @@ public class QuizAppGUI extends JFrame implements WindowListener, WindowFocusLis
         }
     }
 
+    // EFFECTS: prints to console when window is closed 
     @Override
     public void windowClosed(WindowEvent e) {
         System.out.println("WindowListener method called: windowClosed.");
     }
-
+    
+    // EFFECTS: prints to console when window is opened 
     @Override
     public void windowOpened(WindowEvent e) {
         System.out.println("WindowListener method called: windowOpened.");
     }
 
+    // EFFECTS: prints to console when iconified 
     @Override
     public void windowIconified(WindowEvent e) {
         System.out.println("WindowListener method called: windowIconified.");
     }
 
+    // EFFECTS: prints to console when deiconified 
     @Override
     public void windowDeiconified(WindowEvent e) {
         System.out.println("WindowListener method called: windowDeiconified.");
     }
 
+    // EFFECTS: prints to console when window is activated 
     @Override
     public void windowActivated(WindowEvent e) {
         System.out.println("WindowListener method called: windowActivated.");
     }
 
+    // EFFECTS: prints to console when window is deactivated 
     @Override
     public void windowDeactivated(WindowEvent e) {
         System.out.println("WindowListener method called: windowDeactivated.");
     }
 
+    // EFFECTS: prints to console when window is focused 
     @Override
     public void windowGainedFocus(WindowEvent e) { 
         System.out.println("WindowFocusListener method called: windowGainedFocus.");
     }
 
+    // EFFECTS: prints to console when window has lost focus 
     @Override
     public void windowLostFocus(WindowEvent e) {
         System.out.println("WindowFocusListener method called: windowLostFocus.");
-    }
+    }   
 
+    // EFFECTS: prints to console when window state has changed 
     @Override
     public void windowStateChanged(WindowEvent e) {
         System.out.println("WindowStateListener method called: windowStateChanged.");
