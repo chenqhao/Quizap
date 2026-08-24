@@ -69,7 +69,7 @@ added a singleton to What is a singleton
 ## Phase 4: Task 3
 
 - One major refactoring i would do in my project given more time would be to make most of the main model classes (Courses, Units, etc) 
-extend a abstraction. These classes are store a collection of child classes that all have simliar methods. implementing a abstraction class 
+extend a abstraction. These classes are store a collection of child classes that all have similar methods. implementing a abstraction class 
 can support all the main methods that all these classes use such as adding, getting without the need to duplicate these methods for each individual class. 
 
-- Additionally, I think my GUI code could hvae benefitted by making multiple classes so it does not violate the Single Responsibility Principle. Currently, the GUI handles everything, however, i think i could have made different classes such as a class  handling all the data logic such as adding all the data, a controller class, a class to handle persistance and left the current class to construct the main visuals for the GUI. 
+- Additionally, I think my GUI code could have benefitted by making multiple classes so it does not violate the Single Responsibility Principle. Currently, the GUI handles everything, however, i think i could have made different classes such as a class  handling all the data logic such as adding all the data, a controller class, a class to handle persistence and left the current class to construct the main visuals for the GUI. 
