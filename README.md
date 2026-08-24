@@ -1,5 +1,5 @@
 # My Personal Project
-<strong>Quizard</strong>
+<strong>QuizApp</strong>
 ## What will it do?
 I want to build a multiple choice quiz app that will help with studying. Upon starting the app the user can manually type in each <strong><em>course code </strong></em>(eg. CPSC210, MATH200, etc) with <strong><em>subsections for each unit </strong></em>. The user can then <strong><em>make questions</strong></em> and can <strong><em>add multiple answers </strong></em>  or <strong><em> one</strong></em>  to these questions(eg. 2,3,4) to put into each subsection, selecting one or more that is correct with multiple correct answers giving you are <strong> percentage score</strong>. Additionally, they can also input a <strong><em> text</strong></em> like webwork. If they get a question correct, the question will be marked as <strong> complete</strong> so they can track what they have already done. additionally I would like to add a bookmark function to <strong><em> bookmark a question</strong></em>  the user would like to come back to. Furthermore, I would also like to implement a section where the user could <strong><em> provide descriptions/explanations</strong></em>  on why the answer is correct or wrong.
 
